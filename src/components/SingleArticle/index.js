@@ -1,19 +1,23 @@
 import './SingleArticle.css';
+import { Routes, Route, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const SingleArticle = () => {
+  let {id} = useParams()
+  console.log("id is " + id)
+
+  const articles = useSelector(state=>state.articleState.entries);
+  const article = articles.find((object)=>object.id === id)
+  console.log(article)
+
   return (
     <div className='singleArticle'>
-      <h1>Why Am I At Home</h1>
+      <h1>{article.title}</h1>
       <img
-        src='https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Frobcain%2Ffiles%2F2017%2F10%2FKevin-Home-Alone.jpg'
+        src={article.imageUrl}
         alt='home'
       />
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex esse
-        laboriosam officia accusantium veritatis fugiat exercitationem vero
-        autem nihil aliquid ullam recusandae, quis odit odio voluptates
-        explicabo nobis! Consequuntur, aliquam?
-      </p>
+      <p>{article.body}</p>
     </div>
   );
 };
